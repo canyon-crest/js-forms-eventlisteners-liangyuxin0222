@@ -7,12 +7,7 @@
 //  IMPORTANT: Use addEventListener() to wire your
 //  buttons — do NOT add onclick in the HTML.
 // ============================================
-document.getElementById("btnShout").addEventListener("click", function () {
-  const text = document.getElementById("shoutInput").value;
 
-  document.getElementById("outShout").innerHTML =
-    text.toUpperCase() + "!";
-});
 // ============================================
 //  WARM-UP: Shout It!
 // ============================================
@@ -32,13 +27,7 @@ document.getElementById("btnShout").addEventListener("click", function () {
 //            using .innerHTML
 //
 //         Example: "hello" → "HELLO!"
-const toppings = document.getElementsByName("cb");
 
-for (let i = 0; i < toppings.length; i++) {
-  if (toppings[i].checked) {
-    price += 0.50;
-  }
-}
 
 // ============================================
 //  MAIN: Pizza Builder
@@ -84,50 +73,6 @@ for (let i = 0; i < toppings.length; i++) {
 //      Use .toFixed(2) to format the total.
 //      Example: "Alice, your total is $13.50"
 //      If name is empty, use "Customer" as the default.
-document.getElementById("btnCalc").addEventListener("click", function () {
-  let price = 0;
-
-  
-  const sizes = document.getElementsByName("rg");
-
-  for (let i = 0; i < sizes.length; i++) {
-    if (sizes[i].checked) {
-      price = parseFloat(sizes[i].value);
-    }
-  }
-
-  
-  const toppings = document.getElementsByName("cb");
-
-  for (let i = 0; i < toppings.length; i++) {
-    if (toppings[i].checked) {
-      price += 0.50;
-    }
-  }
-
-  
-  const service = document.getElementById("serviceSelect").value;
-  let serviceFee = 0;
-
-  if (service === "takeout") {
-    serviceFee = 1.50;
-  } else if (service === "delivery") {
-    serviceFee = 3.00;
-  }
-
-  price += serviceFee;
-
-  
-  let name = document.getElementById("myInput").value.trim();
-
-  if (name === "") {
-    name = "Customer";
-  }
-
-  
-  document.getElementById("myPara").innerHTML =
-    name + ", your total is $" + price.toFixed(2);
-});
 
 // STEP 4: Get the "Clear" button by ID ("clearBtn")
 //         Add a click event listener.
@@ -137,16 +82,88 @@ document.getElementById("btnCalc").addEventListener("click", function () {
 //         c) Uncheck ALL topping checkboxes (loop through them)
 //         d) Set the service dropdown value to "dinein"
 //         e) Set the output paragraph innerHTML to ""
+
+
+
+
+
+// Shout It
+document.getElementById("btnShout").addEventListener("click", function () {
+  const text = document.getElementById("shoutInput").value;
+
+  document.getElementById("outShout").innerHTML =
+    text.toUpperCase() + "!";
+});
+
+
+// Calculate Total
+document.getElementById("btnCalc").addEventListener("click", function () {
+  let sizePrice = 0;
+
+  // 获取所选尺寸
+  const sizes = document.getElementsByName("rg");
+
+  for (let i = 0; i < sizes.length; i++) {
+    if (sizes[i].checked) {
+      sizePrice = parseFloat(sizes[i].value);
+    }
+  }
+
+  // 计算配料价格
+  const toppings = document.getElementsByName("cb");
+  let toppingCount = 0;
+
+  for (let i = 0; i < toppings.length; i++) {
+    if (toppings[i].checked) {
+      toppingCount++;
+    }
+  }
+
+  const toppingPrice = toppingCount * 0.50;
+
+  // 计算服务费
+  const service = document.getElementById("serviceSelect").value;
+  let serviceFee = 0;
+
+  if (service === "takeout") {
+    serviceFee = 1.50;
+  } else if (service === "delivery") {
+    serviceFee = 3.00;
+  }
+
+  const total = sizePrice + toppingPrice + serviceFee;
+
+  // 获取姓名
+  let name = document.getElementById("myInput").value;
+
+  if (name === "") {
+    name = "Customer";
+  }
+
+  // 显示结果
+  document.getElementById("myPara").innerHTML =
+    name + ", your total is $" + total.toFixed(2);
+});
+
+
+// Clear Form
 document.getElementById("clearBtn").addEventListener("click", function () {
+  // 清空姓名
   document.getElementById("myInput").value = "";
+
+  // 选择 Large
   document.getElementById("r3").checked = true;
 
+  // 清除所有 toppings
   const toppings = document.getElementsByName("cb");
 
   for (let i = 0; i < toppings.length; i++) {
     toppings[i].checked = false;
   }
 
+  // 恢复 Dine In
   document.getElementById("serviceSelect").value = "dinein";
+
+  // 清空结果
   document.getElementById("myPara").innerHTML = "";
 });
