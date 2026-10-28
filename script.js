@@ -7,7 +7,12 @@
 //  IMPORTANT: Use addEventListener() to wire your
 //  buttons — do NOT add onclick in the HTML.
 // ============================================
+document.getElementById("btnShout").addEventListener("click", function () {
+  const text = document.getElementById("shoutInput").value;
 
+  document.getElementById("outShout").innerHTML =
+    text.toUpperCase() + "!";
+});
 // ============================================
 //  WARM-UP: Shout It!
 // ============================================
@@ -27,7 +32,13 @@
 //            using .innerHTML
 //
 //         Example: "hello" → "HELLO!"
+const toppings = document.getElementsByName("cb");
 
+for (let i = 0; i < toppings.length; i++) {
+  if (toppings[i].checked) {
+    price += 0.50;
+  }
+}
 
 // ============================================
 //  MAIN: Pizza Builder
