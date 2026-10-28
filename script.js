@@ -54,7 +54,7 @@
 //      topping checkboxes. Loop through and count how
 //      many are .checked. Multiply count by 0.50.
 
-}
+
 //   c) Get the service fee:
 //      Use document.getElementById("serviceSelect").value
 //      to get the selected option value ("dinein", "takeout",
